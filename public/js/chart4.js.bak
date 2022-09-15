@@ -1,0 +1,110 @@
+$(function() {
+  /* ChartJS
+   * -------
+   * Data and config for chartjs
+   */
+  'use strict';
+  const socket = io()
+  for (let i = 1; i <= 1; i++) { 
+    var chartid = "chart" + i;
+    var chartiddonut = "chartdonut" + i;
+    var data = {
+      labels: arrLable,
+      datasets: [{
+        label: 'Produksi',
+        categoryPercentage: 0.6,
+        barPercentage: 0.5,
+        barThickness: 8,
+        maxBarThickness: 9,
+        minBarLength: 10,
+        data: arrVal,
+        backgroundColor: 
+          'rgba(54, 162, 235, 0.8)'
+        ,
+        borderColor: 
+          'rgba(54, 162, 235, 1)',
+        borderWidth: 1,
+        fill: false
+      }]
+    };
+    var options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      },
+      legend: {
+        display: false
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+    };
+    var doughnutPieData = {
+      labels: [
+        "Red"
+      ],
+      datasets: [{
+        data: [52, 48],
+        backgroundColor: [
+          'rgba(255, 99, 132)',
+        ],
+      }]
+  
+    };
+    var doughnutPieOptions = {
+      responsive: true,
+      cutoutPercentage: 70,
+      animation: {
+        animateScale: true,
+        animateRotate: true
+      },
+      legend: {
+        display: false
+      }
+      
+    };
+
+    // Get context with jQuery - using jQuery's .get() method.
+    if ($(`#barChart${i}`).length) {
+      var barChartCanvas = $(`#barChart${i}`).get(0).getContext("2d");
+      // This will get the first returned node in the jQuery collection.
+      window[chartid] = new Chart(barChartCanvas, {
+        type: 'bar',
+        data: data,
+        options: options
+      });
+    }
+  
+  
+    if ($(`#donat${i}`).length) {
+      var doughnutChartCanvas = $(`#donat${i}`).get(0).getContext("2d");
+      window[chartiddonut] = new Chart(doughnutChartCanvas, {
+        type: 'doughnut',
+        data: doughnutPieData,
+        options: doughnutPieOptions
+      });
+    }
+  }
+
+  socket.on('update-chart', (arrLable, arrVal, id) => {
+    window[`chart${id}`].data.datasets[0].data = arrVal
+    window[`chart${id}`].data.labels = arrLable
+    window[`chart${id}`].update()
+    window[`chart${id}`].data.datasets.push({
+      label: arrLable,
+      data: arrVal
+  });
+  })
+
+  socket.on('update-progbar', (total, ok, ng) => {
+    document.getElementById(`prog-ok-1`).style.width = `${(ok/total*100).toFixed(2)}%`
+    document.getElementById(`prog-ng-1`).style.width = `${(ng/total*100).toFixed(2)}%`
+    document.getElementById(`prog-ok-1`).innerHTML = (ok/total*100).toFixed(2)
+    document.getElementById(`prog-ng-1`).innerHTML = (ng/total*100).toFixed(2)
+  })
+});

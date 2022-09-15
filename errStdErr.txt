@@ -1,0 +1,1 @@
+Its an error ❌. This will be saved in errStdErr.txt file
