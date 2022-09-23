@@ -209,10 +209,10 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../template/pages/Cluster Monitoring/Cluster.html">Cluster 1</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../template/pages/Cluster Monitoring/Cluster2.html">Cluster 2</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../template/pages/Cluster Monitoring/Cluster3.html">Cluster 3</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../template/pages/Cluster Monitoring/Cluster4.html">Cluster 4</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/" >Cluster 1</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/cluster2">Cluster 2</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/cluster3">Cluster 3</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/cluster4">Cluster 4</a></li>
               </ul>
             </div>
           </li>
@@ -429,11 +429,11 @@
                                   </div>
                                 </div>
                               </div>
-                              <div class="col-lg-6 grid-margin stretch-card">
+                              <div class="col-lg-6 grid-margin stretch-card" onclick="window.location='/<%= line %>/<%= part %>/detailreject';">
                                 <div class="card">
                                   <div class="card-body">
                                     <h4 class="card-title">Detail NG</h4>
-                                    <canvas href="/<%= line %>/<%= part %>/detailreject" id="barChart"></canvas>
+                                    <canvas id="barChart"></canvas>
                                   </div>
                                 </div>
                               </div>
