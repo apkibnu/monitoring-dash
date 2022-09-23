@@ -157,7 +157,7 @@ io.on('connection', (socket) => {
                                     socket.emit('update-chart-perc', arrLable, arrValOK, arrValNG, arrValDT)
                                     socket.emit('update-chart-ng', detailNG, lableNG)
                                     socket.emit('update-chart-dt', valDT)
-                                    socket.emit('update-header-det', reshead[0].total, reshead[0].ng, reshead[0].ok, headDT, reshead[0].target)
+                                    socket.emit('update-header', reshead[0].total, reshead[0].ng, reshead[0].ok, headDT, reshead[0].target)
                                 }
                             })
                         })
