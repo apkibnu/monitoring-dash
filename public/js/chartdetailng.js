@@ -58,7 +58,7 @@ $(function() {
     for (let i = 1; i <= arrVal.length; i++) {
       window[`chartdonut${i}`].data.datasets[0].data = arrVal[i-1]
       window[`chartdonut${i}`].update()
-      document.getElementById(`jml${i}`).innerHTML = arrVal[i-1].reduce((x, y) => x + y)
+      document.getElementById(`jml${i}`).innerHTML = arrVal[i-1].reduce((x, y) => x + y) + " Pcs"
     }
   })
 });
