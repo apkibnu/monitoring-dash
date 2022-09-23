@@ -210,7 +210,7 @@ io.on('connection', (socket) => {
                             um.push(resloc3[2][0][`COALESCE(SUM(UM${letter}),0)`])
                             om.push(resloc3[2][0][`COALESCE(SUM(OM${letter}),0)`])
                         }
-                        const datachart = [dm, bl, sr, dn, uc, st, ks, na, rv, bm, jt, pl, nj, op, bc, fl, rt, kr, gp, ov, kp, jm ,un, dk, tr, um, om];
+                        const datachart = [dm, bl, sr, dn, uc, st, ks, na, rv, bm, jt, pl, nj, op, kr, bc, fl, rt, gp, ov, kp, jm ,un, dk, tr, um, om];
                         io.emit('update-val', datachart)
                     })
                 })
@@ -450,7 +450,7 @@ app.get("/:line/:part/detailreject", (req, res) => {
                                 headDT,
                                 ct: resct[0].cycle_time, 
                                 dm, bl, sr, dn, uc, st, ks, na, rv,
-                                bm, jt, pl, nj, op, bc, fl, rt, kr,
+                                bm, jt, pl, nj, op, kr, bc, fl, rt, 
                                 gp, ov, kp, jm ,un, dk, tr, um, om,
                                 line: req.params.line,
                                 part: req.params.part
