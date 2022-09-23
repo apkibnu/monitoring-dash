@@ -83,7 +83,7 @@ io.on('connection', (socket) => {
                 conLocal.query(`select sum(time_to_sec(DT_AUTO) + time_to_sec(DT_MATERIAL) + time_to_sec(DT_MESIN) + time_to_sec(DT_OTHERS) + time_to_sec(DT_PROSES) + time_to_sec(DT_TERPLANNING)) AS dthourly from tb_data_hourly JOIN tb_line ON tb_data_hourly.NAMA_PART = tb_line.NAMA_PART AND tb_data_hourly.LINE = tb_line.NAMA_LINE WHERE tb_line.MACHINING = 'CLUSTER ${cl}' AND tanggal = CURDATE()`, (err, resdt) => {
                     if (err) {console.log(err);}
                     let headDT = `${Math.floor(resdt[0].dthourly/60)}m:${resdt[0].dthourly % 60}s`
-                    io.emit('update-header', reshead[0].target || 0, reshead[0].total || 0, reshead[0].ok || 0, reshead[0].ng || 0, headDT)
+                    socket.emit('update-header', reshead[0].target || 0, reshead[0].total || 0, reshead[0].ok || 0, reshead[0].ng || 0, headDT)
                 })
             })
 
@@ -116,10 +116,10 @@ io.on('connection', (socket) => {
                                 let progok = (resperc[i-1].ok/resperc[i-1].total*100 || 0).toFixed(1)
                                 let progng = (resperc[i-1].ng/resperc[i-1].total*100 || 0).toFixed(1)
                                 let progdt = ((resdt[0].dthourly/resperc[i-1].cycle_time)/resperc[i-1].total*100 || 0).toFixed(1) 
-                                io.emit('update-chart', arrLable, arrOK, arrNG, arrDT, arrTarget, i);
-                                io.emit('update-oee', ava, per, qua, oee, i)
-                                io.emit('update-backcard', progok, progng, progdt, i)
-                                io.emit('update-status', i, resstatus[i-1].STATUS)
+                                socket.emit('update-chart', arrLable, arrOK, arrNG, arrDT, arrTarget, i);
+                                socket.emit('update-oee', ava, per, qua, oee, i)
+                                socket.emit('update-backcard', progok, progng, progdt, i)
+                                socket.emit('update-status', i, resstatus[i-1].STATUS)
                             })
                         })
                     }
@@ -154,10 +154,10 @@ io.on('connection', (socket) => {
                                         arrValNG.push((res95[i].NG/res95[i].TARGET*100).toFixed(2) || 0)
                                         arrValDT.push((Math.floor(res95[i].dthourly/resperc[0].CYCLE_TIME)/res95[i].TARGET*100).toFixed(2) || 0)
                                     }
-                                    io.emit('update-chart-perc', arrLable, arrValOK, arrValNG, arrValDT)
-                                    io.emit('update-chart-ng', detailNG, lableNG)
-                                    io.emit('update-chart-dt', valDT)
-                                    io.emit('update-header', reshead[0].total, reshead[0].ng, reshead[0].ok, headDT, reshead[0].target)
+                                    socket.emit('update-chart-perc', arrLable, arrValOK, arrValNG, arrValDT)
+                                    socket.emit('update-chart-ng', detailNG, lableNG)
+                                    socket.emit('update-chart-dt', valDT)
+                                    socket.emit('update-header-det', reshead[0].total, reshead[0].ng, reshead[0].ok, headDT, reshead[0].target)
                                 }
                             })
                         })
@@ -171,7 +171,7 @@ io.on('connection', (socket) => {
             conLocal.query("SELECT sum(ok) as ok, SUM(total_produksi) as total, SUM(ng) as ng, SUM(target) as target FROM tb_produksi WHERE nama_part = ? and line = ? AND tanggal = CURDATE()", [part, line], (err, reshead) => {
                 conLocal.query("SELECT sum(time_to_sec(DT_AUTO) + time_to_sec(DT_MATERIAL) + time_to_sec(DT_MESIN) + time_to_sec(DT_OTHERS) + time_to_sec(DT_PROSES) + time_to_sec(DT_TERPLANNING)) AS dthourly from tb_data_hourly WHERE nama_part = ? AND line = ? AND tanggal = CURDATE()", [part, line], (err, resdt) => {
                     let headDT = `${Math.floor(resdt[0].dthourly/60)}m:${resdt[0].dthourly % 60}s`
-                    io.emit('update-header', reshead[0].total, reshead[0].ng, reshead[0].ok, headDT, reshead[0].target)
+                    socket.emit('update-header', reshead[0].total, reshead[0].ng, reshead[0].ok, headDT, reshead[0].target)
                 })
             })
             conLocal.query(`SELECT CONCAT('SELECT COALESCE(SUM(', group_concat(COLUMN_NAME SEPARATOR '),0), COALESCE(SUM('), "),0) FROM tb_locsheet_3 WHERE nama_part = ? and line = ? and tanggal = curdate()") FROM  INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = (select database()) AND   TABLE_NAME   = 'tb_locsheet_3' AND (COLUMN_NAME LIKE 'GP_' OR COLUMN_NAME LIKE 'OV_' OR COLUMN_NAME LIKE 'KP_' OR COLUMN_NAME LIKE 'JM_' OR COLUMN_NAME LIKE 'UN_' OR COLUMN_NAME LIKE 'DK_' OR COLUMN_NAME LIKE 'TR_' OR COLUMN_NAME LIKE 'UM_' OR COLUMN_NAME LIKE 'OM_')INTO @statement_var;PREPARE stmt_name FROM @statement_var;EXECUTE stmt_name;DEALLOCATE PREPARE stmt_name;`, [part, line], (err, resloc3) => {
@@ -211,11 +211,10 @@ io.on('connection', (socket) => {
                             om.push(resloc3[2][0][`COALESCE(SUM(OM${letter}),0)`])
                         }
                         const datachart = [dm, bl, sr, dn, uc, st, ks, na, rv, bm, jt, pl, nj, op, kr, bc, fl, rt, gp, ov, kp, jm ,un, dk, tr, um, om];
-                        io.emit('update-val', datachart)
+                        socket.emit('update-val', datachart)
                     })
                 })
-            })
-                    
+            })         
         }, 2000);
     })
     socket.on('disconnect', () => {

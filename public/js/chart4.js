@@ -174,15 +174,7 @@ $(function() {
     }
   }
 
-  if (cl == 1) {
-    socket.emit('interval-c4', 1)
-  } else if (cl == 2) {
-    socket.emit('interval-c4', 2)
-  } else if (cl == 3) {
-    socket.emit('interval-c4', 3)
-  } else if (cl == 4) {
-    socket.emit('interval-c4', 4)
-  } 
+  socket.emit('interval-c4', cl)
 
   socket.on('update-chart', (arrLable, ok, ng, dt, target, id) => {
     window[`chart${id}`].data.labels = arrLable
