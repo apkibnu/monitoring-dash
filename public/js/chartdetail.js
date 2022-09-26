@@ -136,6 +136,7 @@ $(function() {
       options: doughnutPieOptions2
     });
   }
+  socket.emit('interval-detail', part, line)
 
   socket.on('update-chart-ng', (val, lable) => {
     barChartNG.data.datasets[0].data = val
@@ -147,7 +148,7 @@ $(function() {
     barChartDT.update()
   })
   
-  socket.on('update-header-det', (total, ng, ok, dt, target) => {
+  socket.on('update-header', (total, ng, ok, dt, target) => {
     document.getElementById('headOK').innerHTML = ok || 0
     document.getElementById('headNG').innerHTML = ng || 0
     document.getElementById('headDT').innerHTML = dt
