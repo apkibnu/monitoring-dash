@@ -128,9 +128,7 @@
       document.getElementById('performance-line-legend').innerHTML = salesTop.generateLegend();
     }
     const socket = io()
-    window.onload = function(){
-      socket.emit('interval-detail', part, line)
-    }
+    socket.emit('interval-detail', part, line)
     socket.on('update-chart-perc', (lable, ok, ng, dt) => {
       salesTop.data.datasets[0].data = ok
       salesTop.data.datasets[1].data = ng
