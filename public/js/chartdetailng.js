@@ -42,10 +42,7 @@ $(function() {
   }
 
   const socket = io()
-  window.onload = function(){
-    socket.emit('interval-detail-ng', part, line)
-  }
-
+  socket.emit('interval-detail-ng', part, line)
   socket.on('update-header', (total, ng, ok, dt, target) => {
     document.getElementById('headOK').innerHTML = ok || 0
     document.getElementById('headNG').innerHTML = ng || 0

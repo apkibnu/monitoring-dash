@@ -138,6 +138,8 @@ $(function() {
   }
   socket.emit('interval-detail', part, line)
 
+  socket.emit('interval-detail', part, line)
+
   socket.on('update-chart-ng', (val, lable) => {
     barChartNG.data.datasets[0].data = val
     barChartNG.update()

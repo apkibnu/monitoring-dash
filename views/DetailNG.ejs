@@ -149,12 +149,11 @@
               </ul>
             </div>
           </li>
-          <li class="nav-item nav-category">help</li>
-          <li class="nav-item">
-            <a class="nav-link" href="http://bootstrapdash.com/demo/star-admin2-free/docs/documentation.html">
-              <i class="menu-icon mdi mdi-file-document"></i>
-              <span class="menu-title">Documentation</span>
-            </a>
+          <li class="nav-item nav-category">menu</li>
+          <li class="nav-item mx-auto">
+            <button type="button" class="btn btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+              <span class="menu-title">View Location</span>
+            </button>
           </li>
         </ul>
       </nav>
@@ -282,7 +281,7 @@
                       <div class="col-sm-12">
                         <div class="statistics-details d-flex align-items-center justify-content-between">
                           <div class="d-none d-md-block">
-                            <h1 class="fw-bolder"><%= line %></h1>
+                            <h1 class="fw-bolder fs-1"><%= part %></h1>
                           </div>
                             <div>
                               <p class="statistics-title">Target Produksi</p>
@@ -646,6 +645,27 @@
                                   </div>
                                 </div>
                               </div>
+
+                              <!-- MODAL -->
+                              <div class="modal" id="myModal">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                              
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Location Sheet <%= part %></h4>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                              
+                                    <!-- Modal body -->
+                                    <div class="modal-body mx-auto">
+                                      <img src="/images/Loc.Sheet Part/<%= part %>.png" width="1000" height="300" class="img" alt="k1zg">
+                                    </div>
+                              
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- END OF MODAL -->
 
                             </div>
                           </div>                         
