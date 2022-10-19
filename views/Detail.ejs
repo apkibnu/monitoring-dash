@@ -307,6 +307,10 @@
                       }
                       var tampilTanggal = tanggal + ' ' + bulan + ' ' + tahun + ',';
                       document.getElementById('date-1').innerHTML = tampilTanggal;
+                      let month;
+                      function ppp(p) {
+                        month = p
+                      }
                       </script>
                     </li>
                     <li class="nav-item px-1">
@@ -345,19 +349,25 @@
                   <div>
                     <div class="btn-wrapper">
                       <button class="btn btn-otline-dark dropdown-toggle fw-bold" type="button" id="dropdownMenuListline" data-bs-toggle="dropdown" aria-expanded="false">
-                        LINE LIST
+                        PILIH BULAN
                       </button>
                       <ul class="dropdown-menu" id="dropdown-line" aria-labelledby="dropdownMenuListline">
-                        <li><a class="dropdown-item" href="#">LINE 90</a></li>
-                        <li><a class="dropdown-item" href="#">LINE 91</a></li>
-                        <li><a class="dropdown-item" href="#">LINE 92</a></li>
-                        <li><a class="dropdown-item" href="#">LINE 93</a></li>
-                        <li><a class="dropdown-item" href="#">LINE 94</a></li>
-                        <li><a class="dropdown-item" href="#">LINE 95</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(1)">JANUARI</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(2)">FEBRUARI</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(3)">MARET</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(4)">APRIL</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(5)">MEI</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(6)">JUNI</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(7)">JULI</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(8)">AGUSTUS</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(9)">SEPTEMBER</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(10)">OKTOBER</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(11)">NOVEMBER</a></li>
+                        <li><a class="dropdown-item" id="month" onclick="ppp(12)">DESEMBER</a></li>
                       </ul>
-                      <a href="#" class="btn btn-otline-dark align-items-center"><i class="icon-share"></i> Share</a>
-                      <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i> Print</a>
-                      <a href="#" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
+                      <a href="#" class="btn btn-otline-dark align-items-center" style="display: none;"><i class="icon-share"></i> Share</a>
+                      <a href="#" class="btn btn-otline-dark" style="display: none;"><i class="icon-printer"></i> Print</a>
+                      <a href="#" class="btn btn-primary text-white me-0" id="export"><i class="icon-download"></i> Export</a>
                     </div>
                   </div>
                 </div>
@@ -500,7 +510,6 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="/js/jquery.cookie.js" type="text/javascript"></script>
-  <script src="/js/dashboard.js"></script>
   <script src="/js/Chart.roundedBarCharts.js"></script>
   <script src="/js/chartdetail.js"></script>
   <!-- End custom js for this page-->
