@@ -29,8 +29,9 @@ exports.detailLine = (req, res) => {
                             }
                             res.render('Detail', data)
                         } else {
-                            let totalDT = resdt[0].totalmat + resdt[0].totalpro + resdt[0].totalmesin + resdt[0].totalauto + resdt[0].totaloth + resdt[0].totalplan
+                            let totalDT = parseInt(resdt[0].totalmat) + parseInt(resdt[0].totalpro) + parseInt(resdt[0].totalmesin) + parseInt(resdt[0].totalauto) + parseInt(resdt[0].totaloth) + parseInt(resdt[0].totalplan)
                             let headDT = `${Math.floor(totalDT / 60)}m:${totalDT % 60}s`
+                            console.log(totalDT)
                             const detailNG = [resng[0].dm, resng[0].bl, resng[0].sr, resng[0].dn, resng[0].uc, resng[0].st, resng[0].ks, resng[0].na, resng[0].rv, resng[0].bm, resng[0].jt, resng[0].pl, resng[0].nj, resng[0].op, resng[0].kr, resng[0].bc, resng[0].fl, resng[0].rt, resng[0].gp, resng[0].ov, resng[0].kp, resng[0].jm, resng[0].un, resng[0].dk, resng[0].tr, resng[0].um, resng[0].om]
                             const lableNG = ['DIMENSI', 'BLONG', 'SERET', 'DENT', 'UNCUTTING', 'STEP', 'KASAR', 'NG_ASSY', 'RIVET', 'BIMETAL', 'JOINT_TUBE', 'PLATE', 'NO_JIG', 'OTHERS_P', 'KEROPOS', 'BOCOR', 'FLOWLINE', 'RETAK', 'GOMPAL', 'OVER_PROSES', 'KURANG_PROSES', 'JAMUR', 'UNDERCUT', 'DEKOK', 'TRIAL', 'UNCUT_MATERIAL', 'OTHERS_MATERIAL']
                             const arrLable = [];
@@ -86,33 +87,33 @@ exports.detailNG = (req, res) => {
                             const [gp, ov, kp, jm, un, dk, tr, um, om] = Array.from({ length: 9 }, () => []);
                             for (let i = 1; i <= 24; i++) {
                                 var letter = String.fromCharCode(i + 64);
-                                dm.push(resloc1[2][0][`COALESCE(SUM(DM${letter}),0)`])
-                                bl.push(resloc1[2][0][`COALESCE(SUM(BL${letter}),0)`])
-                                sr.push(resloc1[2][0][`COALESCE(SUM(SR${letter}),0)`])
-                                dn.push(resloc1[2][0][`COALESCE(SUM(DN${letter}),0)`])
-                                uc.push(resloc1[2][0][`COALESCE(SUM(UC${letter}),0)`])
-                                st.push(resloc1[2][0][`COALESCE(SUM(ST${letter}),0)`])
-                                ks.push(resloc1[2][0][`COALESCE(SUM(KS${letter}),0)`])
-                                na.push(resloc1[2][0][`COALESCE(SUM(NA${letter}),0)`])
-                                rv.push(resloc1[2][0][`COALESCE(SUM(RV${letter}),0)`])
-                                bm.push(resloc2[2][0][`COALESCE(SUM(BM${letter}),0)`])
-                                jt.push(resloc2[2][0][`COALESCE(SUM(JT${letter}),0)`])
-                                pl.push(resloc2[2][0][`COALESCE(SUM(PL${letter}),0)`])
-                                nj.push(resloc2[2][0][`COALESCE(SUM(NJ${letter}),0)`])
-                                op.push(resloc2[2][0][`COALESCE(SUM(OP${letter}),0)`])
-                                bc.push(resloc2[2][0][`COALESCE(SUM(BC${letter}),0)`])
-                                fl.push(resloc2[2][0][`COALESCE(SUM(FL${letter}),0)`])
-                                rt.push(resloc2[2][0][`COALESCE(SUM(RT${letter}),0)`])
-                                kr.push(resloc2[2][0][`COALESCE(SUM(KR${letter}),0)`])
-                                gp.push(resloc3[2][0][`COALESCE(SUM(GP${letter}),0)`])
-                                ov.push(resloc3[2][0][`COALESCE(SUM(OV${letter}),0)`])
-                                kp.push(resloc3[2][0][`COALESCE(SUM(KP${letter}),0)`])
-                                jm.push(resloc3[2][0][`COALESCE(SUM(JM${letter}),0)`])
-                                un.push(resloc3[2][0][`COALESCE(SUM(UN${letter}),0)`])
-                                dk.push(resloc3[2][0][`COALESCE(SUM(DK${letter}),0)`])
-                                tr.push(resloc3[2][0][`COALESCE(SUM(TR${letter}),0)`])
-                                um.push(resloc3[2][0][`COALESCE(SUM(UM${letter}),0)`])
-                                om.push(resloc3[2][0][`COALESCE(SUM(OM${letter}),0)`])
+                                dm.push(parseInt(resloc1[2][0][`COALESCE(SUM(DM${letter}),0)`]))
+                                bl.push(parseInt(resloc1[2][0][`COALESCE(SUM(BL${letter}),0)`]))
+                                sr.push(parseInt(resloc1[2][0][`COALESCE(SUM(SR${letter}),0)`]))
+                                dn.push(parseInt(resloc1[2][0][`COALESCE(SUM(DN${letter}),0)`]))
+                                uc.push(parseInt(resloc1[2][0][`COALESCE(SUM(UC${letter}),0)`]))
+                                st.push(parseInt(resloc1[2][0][`COALESCE(SUM(ST${letter}),0)`]))
+                                ks.push(parseInt(resloc1[2][0][`COALESCE(SUM(KS${letter}),0)`]))
+                                na.push(parseInt(resloc1[2][0][`COALESCE(SUM(NA${letter}),0)`]))
+                                rv.push(parseInt(resloc1[2][0][`COALESCE(SUM(RV${letter}),0)`]))
+                                bm.push(parseInt(resloc2[2][0][`COALESCE(SUM(BM${letter}),0)`]))
+                                jt.push(parseInt(resloc2[2][0][`COALESCE(SUM(JT${letter}),0)`]))
+                                pl.push(parseInt(resloc2[2][0][`COALESCE(SUM(PL${letter}),0)`]))
+                                nj.push(parseInt(resloc2[2][0][`COALESCE(SUM(NJ${letter}),0)`]))
+                                op.push(parseInt(resloc2[2][0][`COALESCE(SUM(OP${letter}),0)`]))
+                                bc.push(parseInt(resloc2[2][0][`COALESCE(SUM(BC${letter}),0)`]))
+                                fl.push(parseInt(resloc2[2][0][`COALESCE(SUM(FL${letter}),0)`]))
+                                rt.push(parseInt(resloc2[2][0][`COALESCE(SUM(RT${letter}),0)`]))
+                                kr.push(parseInt(resloc2[2][0][`COALESCE(SUM(KR${letter}),0)`]))
+                                gp.push(parseInt(resloc3[2][0][`COALESCE(SUM(GP${letter}),0)`]))
+                                ov.push(parseInt(resloc3[2][0][`COALESCE(SUM(OV${letter}),0)`]))
+                                kp.push(parseInt(resloc3[2][0][`COALESCE(SUM(KP${letter}),0)`]))
+                                jm.push(parseInt(resloc3[2][0][`COALESCE(SUM(JM${letter}),0)`]))
+                                un.push(parseInt(resloc3[2][0][`COALESCE(SUM(UN${letter}),0)`]))
+                                dk.push(parseInt(resloc3[2][0][`COALESCE(SUM(DK${letter}),0)`]))
+                                tr.push(parseInt(resloc3[2][0][`COALESCE(SUM(TR${letter}),0)`]))
+                                um.push(parseInt(resloc3[2][0][`COALESCE(SUM(UM${letter}),0)`]))
+                                om.push(parseInt(resloc3[2][0][`COALESCE(SUM(OM${letter}),0)`]))
                             }
                             data = {
                                 target: reshead[0].target || 0,

@@ -7,7 +7,7 @@ $(function () {
   $("#export").click(function () {
     if (!month) {
       alert('Silahkan Pilih Bulan Terlebih Dahulu')
-    } else { window.location = `http://localhost:3333/download?part=${part}&line=${line}&month=${month}` }
+    } else { window.location = `http://10.14.20.212:3333/download?part=${part}&line=${line}&month=${month}` }
   });
 
 
