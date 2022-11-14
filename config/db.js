@@ -8,6 +8,7 @@ const conLocalP = mysqlp.createPool({
   database: "smartsys_Monitoring_mach",
   waitForConnections: true,
   connectionLimit: 10,
+  multipleStatements: true
 })
 
 const conLocal = mysql.createConnection({

@@ -4,11 +4,73 @@ $(function () {
    * Data and config for chartjs
    */
   'use strict';
+  var date1;
+  var date2;
   $("#export").click(function () {
     if (!month) {
       alert('Silahkan Pilih Bulan Terlebih Dahulu')
-    } else { window.location = `http://10.14.20.212:3333/download?part=${part}&line=${line}&month=${month}` }
+    } else { window.location = `/download?part=${part}&line=${line}&month=${month}` }
   });
+
+  function formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
+
+  $('#filter').click(() => {
+    if (!date1) {
+      window.location = `/${line}/${part}`
+    } else if (date1 && !date2) {
+      window.location = `/${line}/${part}?date1=${date1}`
+    } else {
+      const d1 = date1.split('-')
+      const d2 = date2.split('-')
+      if (d1[1] > d2[1] && d1[0] == d2[0]) { alert('Terjadi Kesalahan Input Tanggal!') }
+      else if (d1[1] == d2[1] && d1[2] > d2[2]) { alert('Terjadi Kesalahan Input Tanggal!') }
+      else if (d1[0] > d2[0]) { alert('Terjadi Kesalahan Input Tanggal!') }
+      else (window.location = `/${line}/${part}?date1=${date1}&date2=${date2}`)
+    }
+  })
+
+  $("#datepick1").datepicker({
+    beforeShow: function () {
+      setTimeout(function () {
+        $('.ui-datepicker').css('z-index', 99999999999999);
+      }, 0);
+    },
+    onSelect: function () {
+      date1 = formatDate($(this).datepicker('getDate'));
+      console.log(formatDate(date1))
+    }
+  });
+
+  $("#datepick2").datepicker({
+    beforeShow: function () {
+      setTimeout(function () {
+        $('.ui-datepicker').css('z-index', 99999999999999);
+      }, 0);
+    },
+    onSelect: function () {
+      date2 = formatDate($(this).datepicker('getDate'));
+      console.log(formatDate(date2))
+    }
+  });
+  if (dateFilter && dateFilter2) {
+    $('#datepick1').datepicker('setDate', new Date(dateFilter));
+    $('#datepick2').datepicker('setDate', new Date(dateFilter2));
+  }
+  else if (dateFilter) {
+    $('#datepick1').datepicker('setDate', new Date(dateFilter));
+  }
 
 
   if ($("#performaneLine").length) {
@@ -99,7 +161,7 @@ $(function () {
           },
           ticks: {
             beginAtZero: false,
-            autoSkip: true,
+            autoSkip: false,
             maxTicksLimit: 7,
             fontSize: 10,
             color: "#6B778C"
@@ -269,7 +331,10 @@ $(function () {
     });
   }
   const socket = io()
-  socket.emit('interval-detail', part, line)
+
+  if (!dateFilter) {
+    socket.emit('interval-detail', part, line)
+  }
 
   socket.on('disconnect')
 
